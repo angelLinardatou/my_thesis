@@ -1,4 +1,3 @@
-# Transformer Models - Cleaned with English comments
 from catboost import CatBoostClassifier
 from itertools import product
 from lightgbm import LGBMClassifier
@@ -999,21 +998,20 @@ print(f"Predictions saved to {output_path}")
 
 
 
-# Φόρτωσε το fine-tuned BERT και τον tokenizer
+# Load fine-tuned BERT and tokenizer
 save_path = "C:/Users/Aggeliki/Desktop/Thesis/public_data/fine_tuned_bert"
 bert_tokenizer = BertTokenizer.from_pretrained(save_path)
 bert_model = BertForSequenceClassification.from_pretrained(save_path)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 bert_model.to(device)
 
-# Φόρτωσε το test dataset
+# Load test dataset
 test_file_path = "C:/Users/Aggeliki/Desktop/Thesis/public_data_test/track_a/test/eng.csv"
 data_with_missing = pd.read_csv(test_file_path)
 
-# Εξαγωγή κειμένων προς πρόβλεψη
+#Extract texts to predict 
 texts_to_predict = data_with_missing['text'].dropna().tolist()
 
-# Συνάρτηση εξαγωγής embeddings
 def extract_embeddings(texts, tokenizer, model, max_length=128):
     inputs = tokenizer(texts, truncation=True, padding=True, max_length=max_length, return_tensors="pt").to(device)
     with torch.no_grad():
@@ -1023,29 +1021,25 @@ def extract_embeddings(texts, tokenizer, model, max_length=128):
 print("Extracting embeddings for test data...")
 X_bert = extract_embeddings(texts_to_predict, bert_tokenizer, bert_model, max_length=128)
 
-# Φόρτωσε το αποθηκευμένο TF-IDF vectorizer
+# Load TF-IDF vectorizer
 vectorizer_path = "C:/Users/Aggeliki/Desktop/Thesis/public_data/tfidf_vectorizer.pkl"
 vectorizer = joblib.load(vectorizer_path)
 
-# Εφαρμογή TF-IDF
+
 X_tfidf = vectorizer.transform(texts_to_predict).toarray()
 
-# Συνδυασμός χαρακτηριστικών
+
 X_combined = np.hstack((X_bert, X_tfidf))
 
-# Φόρτωσε το εκπαιδευμένο μοντέλο
 model_path = "C:/Users/Aggeliki/Desktop/Thesis/public_data/voting_ensemble_model_with_features.pkl"
 multi_label_model = joblib.load(model_path)
 
-# Φόρτωσε τα thresholds
 thresholds_path = "C:/Users/Aggeliki/Desktop/Thesis/public_data/best_thresholds.npy"
 best_thresholds = np.load(thresholds_path)
 
-# Κάνε προβλέψεις
 print("Making predictions...")
 Y_pred_proba = multi_label_model.predict_proba(X_combined)
 
-# Εφαρμογή thresholds
 Y_pred = np.zeros((len(Y_pred_proba[0]), len(best_thresholds)), dtype=int)
 for i in range(len(best_thresholds)):
     if Y_pred_proba[i].shape[1] > 1:
@@ -1053,7 +1047,6 @@ for i in range(len(best_thresholds)):
     else:
         Y_pred[:, i] = (Y_pred_proba[i][:, 0] >= best_thresholds[i]).astype(int)
 
-# Αποθήκευση των τελικών προβλέψεων χωρίς δεκαδικά
 output_path = "C:/Users/Aggeliki/Desktop/Thesis/public_data_test/track_a/test/eng_filled.csv"
 data_with_missing.loc[data_with_missing['text'].notna(), ['anger', 'fear', 'joy', 'sadness', 'surprise']] = Y_pred
 final_df = data_with_missing[['id', 'anger', 'fear', 'joy', 'sadness', 'surprise']]
@@ -1555,6 +1548,5 @@ print("Accuracy:", accuracy)
 
 
 # In[ ]:
-
 
 

@@ -1,4 +1,3 @@
-# Supervised Models - Cleaned with English comments
 from gensim.models import Word2Vec
 from nltk.corpus import stopwords
 from sklearn.ensemble import RandomForestClassifier
@@ -294,18 +293,16 @@ data = pd.DataFrame({
     'surprise': [surprise_appears]
 }, index=['Appears'])
 
-# Χρώματα pastel με απαλή απόδοση
-colors = ['#D98880',  # Απαλό κόκκινο
-          '#F5CBA7',  # Απαλό πορτοκαλί
-          '#AED6F1',  # Απαλό μπλε
-          '#D7BDE2',  # Απαλό μοβ
-          '#A9DFBF']  # Απαλό πράσινο
 
-# Δημιουργία διαγράμματος
+colors = ['#D98880',  
+          '#F5CBA7', 
+          '#AED6F1',  
+          '#D7BDE2',  
+          '#A9DFBF']  
+
 plt.figure(figsize=(8, 6))
-data.plot(kind='bar', color=colors,  alpha=0.8)  # Alpha για πιο απαλή αίσθηση
+data.plot(kind='bar', color=colors,  alpha=0.8)  
 
-# Προσθήκη τίτλου και ετικετών
 plt.title('Emotions Appearance in Texts', fontsize=14)
 plt.xlabel('Emotion Status', fontsize=12)
 plt.ylabel('Count', fontsize=12)
@@ -313,10 +310,8 @@ plt.ylabel('Count', fontsize=12)
 # Περιστροφή x-ticks
 plt.xticks(rotation=0)
 
-# Προσαρμογή layout
 plt.tight_layout()
 
-# Εμφάνιση γραφήματος
 plt.savefig(figure_dir / 'plot_08.png')
 plt.close()
 
@@ -417,27 +412,25 @@ plt.close()
 
 
 #Second Diagram 
-# Δεδομένα για το bar plot
+
 labels = ['Exactly One Emotion', 'More Emotions']
 counts = [only_one_emotion_count, two_or_more_emotion_count]
 
-# Νέα pastel χρωματική παλέτα με ακόμα πιο απαλά κόκκινα & πράσινα
-colors = ['#F4A7A3',  # Πολύ απαλό κόκκινο
-          '#B7E1CD']  # Πολύ απαλό πράσινο
 
-# Δημιουργία του bar plot με τις νέες pastel αποχρώσεις
+colors = ['#F4A7A3',  
+          '#B7E1CD']  
+
 plt.figure(figsize=(8, 5))
-plt.bar(labels, counts, color=colors, alpha=0.8)  # Ακόμα πιο απαλή εμφάνιση
+plt.bar(labels, counts, color=colors, alpha=0.8)  
 
-# Προσθήκη τίτλου και labels
 plt.title('Comparison of Texts by Emotion Count', fontsize=14)
 plt.xlabel('Emotion Status', fontsize=12)
 plt.ylabel('Count', fontsize=12)
 
-# Βελτίωση της διάταξης
+
 plt.tight_layout()
 
-# Εμφάνιση γραφήματος
+
 plt.savefig(figure_dir / 'plot_11.png')
 plt.close()
 
@@ -995,4 +988,3 @@ pip install transformers
 
 
 # In[30]:
-
