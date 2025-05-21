@@ -1,3 +1,4 @@
+# Supervised Models - Cleaned with English comments
 from gensim.models import Word2Vec
 from nltk.corpus import stopwords
 from sklearn.ensemble import RandomForestClassifier
