@@ -1,21 +1,77 @@
-# Main Models Repository
+# Main Models Repository (Supervised & Transformer Models)
 
-This project contains analysis and modeling scripts related to emotion and sentiment classification.
+This repository contains the full pipeline for supervised machine learning models and transformer-based models applied on multi-label emotion classification.
 
-## Structure
+## Repository Structure
 
-- `supervised_models.py`: Traditional ML models (Logistic Regression, SVM, Random Forest, XGBoost, etc.)
-- `transformer_models.py`: Deep learning models using transformers (BERT, RoBERTa)
-- `figures/`: Auto-generated plots and visualizations
-- `results/`: Evaluation results (metrics, thresholds)
+- `supervised_models.py` : Traditional ML models using TF-IDF, Word2Vec, Optuna hyperparameter tuning, RandomForest, KNN.
+- `transformer_models.py` : Transformer-based embeddings (BERT, RoBERTa, XLM-RoBERTa, ModernBERT) with classical ML classifiers.
+- `eng.xlsx` : Raw annotation dataset (NOT uploaded to GitHub).
+- `results/` : Saved evaluation reports and intermediate outputs.
+- `figures/` : Auto-generated visualizations.
+- `saved_models/` : Saved trained models.
+- `requirements.txt` : Required Python packages.
+- `.gitignore` : Files/folders excluded from version control.
 
-## How to Use
+## Emotion Labels
 
-Run each script individually based on the task:
+The models classify texts into the following emotion categories:
 
-```bash
+- Anger
+- Fear
+- Joy
+- Sadness
+- Surprise
+
+## How to Run
+
+### Prepare your data
+
+- Place `eng.xlsx` directly in the root of `main_models_repo/`.
+
+The Excel file should contain:
+
+text, anger, fear, joy, sadness, surprise
+
+### Install dependencies
+
+pip install -r requirements.txt
+
+Example packages included:
+
+pandas
+numpy
+scikit-learn
+matplotlib
+tqdm
+transformers
+optuna
+gensim
+xgboost
+catboost
+lightgbm
+joblib
+nltk
+
+### Execute scripts
+
+#### Traditional ML models:
+
 python supervised_models.py
-python transformer_models.py
-```
 
-Each script saves outputs in the corresponding folder.
+#### Transformer models:
+
+python transformer_models.py
+
+- Results will be saved into `results/` and `saved_models/`.
+- Figures will be saved into `figures/`.
+
+## Notes
+
+- This repository performs **multi-label classification**.
+- The Transformers extract embeddings from pretrained models and apply classical ML classifiers.
+- The dataset file `eng.xlsx`, intermediate models and embeddings are excluded from GitHub for privacy.
+
+---
+
+This repository is fully reproducible and thesis-ready.
