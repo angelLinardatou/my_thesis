@@ -117,3 +117,5 @@ plt.title("Upper Triangular Heatmap of Correlation Between Annotators")
 plt.tight_layout()
 plt.savefig(figure_dir / 'plot_correlation.png')
 plt.close()
+
+print("EDA analysis completed successfully and all figures saved.")
