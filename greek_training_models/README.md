@@ -25,7 +25,7 @@ The models classify Greek texts into:
 
 ## How to Run
 
-### 1️⃣ Prepare your data
+### 1️. Prepare your data
 
 Place the following files into the root directory:
 
@@ -33,13 +33,13 @@ Place the following files into the root directory:
 - `ground_truth.xlsx`
 - `ib1_sentiment_probs.xlsx`
 
-### 2️⃣ Install dependencies
+### 2️. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Execute the script
+### 3️. Execute the script
 
 ```bash
 python greek_roberta_models.py
