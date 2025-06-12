@@ -1,29 +1,25 @@
-# Greek Training Models (RoBERTa)
+# Greek Sentiment and Emotion Fine-Tuning (Greek Language)
 
-This repository contains code for training and evaluating multilingual models on Greek-language sentiment and emotion datasets.
+This repository contains fine-tuning experiments on **Greek language** sentiment and emotion classification using the XLM-RoBERTa model. The dataset includes three different tasks with varying label schemes.
 
-## Model
+## Repository Structure
 
-- **XLM-RoBERTa** was fine-tuned using Greek datasets.
-- The task includes classification into binary, trinary, and multi-emotion labels.
-- Evaluation results and figures are automatically generated and saved.
+- `greek_roberta_models.py` : Main training and evaluation script.
+- `gr.xlsx` : Dataset for 3-class sentiment classification (negative, neutral, positive).
+- `ib1_sentiment_probs.xlsx` : Dataset for 4-class sentiment classification (negative, neutral, positive, narrator).
+- `ground_truth.xlsx` : Dataset for 9-class emotion classification.
+- `figures/` : Auto-generated plots.
+- `results/` : Saved evaluation results.
+- `requirements.txt` : Required Python packages.
+- `.gitignore` : Files and folders excluded from version control.
 
-## Structure
+## How to Run
 
-```
-greek_training_models/
-├── greek_roberta_models.py      # Fine-tuned XLM-RoBERTa model code
-├── results/
-│   └── metrics.csv              # Evaluation scores
-├── figures/
-│   ├── plot_01_sentiment_distribution.png
-│   └── plot_02_label_distribution.png
-```
+ **1. Prepare Data**
 
-## Usage
+- Place the datasets (`gr.xlsx`, `ib1_sentiment_probs.xlsx`, `ground_truth.xlsx`) inside the main repository folder.
+
+**2. Install Dependencies**
 
 ```bash
-python greek_roberta_models.py
-```
-
-All plots will be saved in the `figures/` folder, and performance metrics in `results/`.
+pip install -r requirements.txt
