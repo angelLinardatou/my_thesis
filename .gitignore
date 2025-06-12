@@ -13,16 +13,38 @@ Thumbs.db
 # Jupyter checkpoints
 .ipynb_checkpoints/
 
-# Inter-Annotator repo raw data
+########################
+# Inter-Annotator repo #
+########################
+
+# Raw data
 inter_annotator_repo/annotations/
 
-# Greek training raw data (directly in repo)
+# Optional figures & results
+# inter_annotator_repo/figures/
+# inter_annotator_repo/results/
+
+#############################
+# Greek training models repo #
+#############################
+
+# Raw data
 greek_training_models/gr.*
 greek_training_models/ground_truth.*
 greek_training_models/ib1_sentiment_probs.*
 
-# Optional: Figures and results (optional depending if you want them in GitHub)
-# inter_annotator_repo/figures/
-# inter_annotator_repo/results/
+# Optional figures & results
 # greek_training_models/figures/
 # greek_training_models/results/
+
+#############################
+# Main models repo (transformers, supervised) #
+#############################
+
+# Raw data
+main_models_repo/annotations/
+
+# Outputs
+main_models_repo/results/
+main_models_repo/saved_models/
+main_models_repo/figures/
