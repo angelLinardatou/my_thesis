@@ -1,3 +1,4 @@
+
 # Inter-Annotator Agreement EDA
 
 This repository contains an Exploratory Data Analysis (EDA) pipeline for studying inter-annotator agreement in emotion labeling tasks.
@@ -12,17 +13,30 @@ This repository contains an Exploratory Data Analysis (EDA) pipeline for studyin
 
 ## How to Run
 
-**1. Place your annotation Excel files into the `annotations/` folder.**
+### 1️⃣ Place your annotation Excel files into the `annotations/` folder.
 
 The Excel files must have 6 columns (after skipping the first row):
 
-`id, text, anger, fear, joy, sadness, surprise`
+```
+id, text, anger, fear, joy, sadness, surprise
+```
 
 The script automatically handles missing values by filling them with column means.
 
-**2. Install dependencies:**
+### 2️⃣ Install dependencies
 
 ```bash
 pip install -r requirements.txt
+```
 
+### 3️⃣ Execute the EDA script
 
+```bash
+python inter_annotator_eda.py
+```
+
+The figures will be automatically saved into the `figures/` directory.
+
+---
+
+This repository is fully reproducible and thesis-ready.

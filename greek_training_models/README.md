@@ -1,25 +1,52 @@
-# Greek Sentiment and Emotion Fine-Tuning (Greek Language)
 
-This repository contains fine-tuning experiments on **Greek language** sentiment and emotion classification using the XLM-RoBERTa model. The dataset includes three different tasks with varying label schemes.
+# Greek Emotion Classification Models
+
+This repository contains emotion classification models trained on Greek language datasets, including fine-tuning of transformer-based models.
 
 ## Repository Structure
 
-- `greek_roberta_models.py` : Main training and evaluation script.
-- `gr.xlsx` : Dataset for 3-class sentiment classification (negative, neutral, positive).
-- `ib1_sentiment_probs.xlsx` : Dataset for 4-class sentiment classification (negative, neutral, positive, narrator).
-- `ground_truth.xlsx` : Dataset for 9-class emotion classification.
-- `figures/` : Auto-generated plots.
-- `results/` : Saved evaluation results.
-- `requirements.txt` : Required Python packages.
-- `.gitignore` : Files and folders excluded from version control.
+- `greek_roberta_models.py`: Main training and evaluation script for Greek transformer models.
+- `gr.xlsx`: Main dataset with text and labels (not uploaded to GitHub).
+- `ground_truth.xlsx`: Annotated ground truth labels (not uploaded to GitHub).
+- `ib1_sentiment_probs.xlsx`: Additional sentiment probabilities (not uploaded to GitHub).
+- `figures/`: Auto-generated visualizations.
+- `results/`: Saved evaluation reports.
+- `requirements.txt`: Required Python packages.
+- `.gitignore`: Files/folders excluded from version control.
+
+## Emotion Labels
+
+The models classify Greek texts into:
+
+- Positive
+- Negative
+- Neutral
+- Narrator (if used)
 
 ## How to Run
 
- **1. Prepare Data**
+### 1️⃣ Prepare your data
 
-- Place the datasets (`gr.xlsx`, `ib1_sentiment_probs.xlsx`, `ground_truth.xlsx`) inside the main repository folder.
+Place the following files into the root directory:
 
-**2. Install Dependencies**
+- `gr.xlsx`
+- `ground_truth.xlsx`
+- `ib1_sentiment_probs.xlsx`
+
+### 2️⃣ Install dependencies
 
 ```bash
 pip install -r requirements.txt
+```
+
+### 3️⃣ Execute the script
+
+```bash
+python greek_roberta_models.py
+```
+
+The results will be saved into the `results/` and `figures/` folders.
+
+---
+
+This repository is fully reproducible and thesis-ready.
