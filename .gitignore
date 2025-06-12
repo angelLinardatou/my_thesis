@@ -1,18 +1,28 @@
-# Python cache
+# Python cache files
 __pycache__/
 *.pyc
 
-# IDE/editor config files
+# IDE/editor folders
 .vscode/
 .idea/
 
-# OS system files
+# OS generated files
 .DS_Store
 Thumbs.db
 
-# Jupyter notebook checkpoints (if you ever use notebooks)
+# Jupyter checkpoints
 .ipynb_checkpoints/
 
-# Annotation data (keep this folder locally, don't upload to GitHub)
-annotations/
- 
+# Inter-Annotator repo raw data
+inter_annotator_repo/annotations/
+
+# Greek training raw data (directly in repo)
+greek_training_models/gr.*
+greek_training_models/ground_truth.*
+greek_training_models/ib1_sentiment_probs.*
+
+# Optional: Figures and results (optional depending if you want them in GitHub)
+# inter_annotator_repo/figures/
+# inter_annotator_repo/results/
+# greek_training_models/figures/
+# greek_training_models/results/
