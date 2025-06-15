@@ -5,10 +5,9 @@ scikit-learn
 matplotlib
 tqdm
 transformers
-optuna
+torch
 gensim
-xgboost
-catboost
-lightgbm
+optuna
 joblib
 nltk
+sentence-transformers

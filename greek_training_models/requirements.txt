@@ -5,6 +5,5 @@ scikit-learn
 matplotlib
 tqdm
 transformers
-joblib
-nltk
 torch
+joblib
