@@ -1,41 +1,59 @@
 
-# Inter-Annotator Agreement EDA
+# Inter-Annotator Agreement EDA (Modularized Version)
 
-This repository contains an Exploratory Data Analysis (EDA) pipeline for studying inter-annotator agreement in emotion labeling tasks.
+This repository contains a fully modularized Exploratory Data Analysis (EDA) pipeline for analyzing inter-annotator agreement in emotion annotation datasets.
 
 ## Repository Structure
 
-- `inter_annotator_eda.py`: Main EDA script.
-- `annotations/`: Folder containing the input annotation Excel files (not uploaded to GitHub).
-- `figures/`: Auto-generated visualizations.
-- `requirements.txt`: Dependencies.
-- `.gitignore`: Files and folders excluded from version control.
+- `main.py` — Main script that executes the full EDA pipeline.
+- `src/` — Folder containing all modularized Python classes:
+  - `loader.py` — Load and preprocess Excel annotation files.
+  - `statistics.py` — Compute descriptive statistics for annotations.
+  - `plotter.py` — Generate emotion distribution plots.
+  - `agreement.py` — Compute pairwise inter-annotator Cohen’s Kappa scores.
+  - `confusion.py` — Generate confusion matrix heatmaps.
+  - `kappa_plots.py` — Generate Kappa agreement heatmaps.
+- `annotations/` — Folder containing the raw Excel annotation files (not uploaded to GitHub).
+- `figures/` — Auto-generated plots saved during EDA.
+- `requirements.txt` — Required Python packages.
+- `.gitignore` — Files and folders excluded from version control.
+
+## Input File Format
+
+The Excel annotation files must follow the format:
+
+id, text, anger, fear, joy, sadness, surprise
+
+The code automatically renames columns and processes missing values.
 
 ## How to Run
 
-### 1️⃣ Place your annotation Excel files into the `annotations/` folder.
+### 1️⃣ Prepare your dataset
 
-The Excel files must have 6 columns (after skipping the first row):
-
-```
-id, text, anger, fear, joy, sadness, surprise
-```
-
-The script automatically handles missing values by filling them with column means.
+- Place all annotation Excel files inside the `annotations/` folder.
 
 ### 2️⃣ Install dependencies
 
-```bash
 pip install -r requirements.txt
-```
 
-### 3️⃣ Execute the EDA script
+### 3️⃣ Execute the pipeline
 
-```bash
-python inter_annotator_eda.py
-```
+python main.py
 
-The figures will be automatically saved into the `figures/` directory.
+- All generated plots will be saved automatically inside `figures/`.
+
+## Output
+
+- Descriptive statistics printed for each annotation file.
+- Emotion distribution barplots.
+- Cohen’s Kappa heatmaps.
+- Confusion matrix heatmaps.
+
+## Notes
+
+- Fully modularized for reproducibility and scalability.
+- Clean separation of code responsibilities using Python classes.
+- Ready for thesis submission.
 
 ---
 
