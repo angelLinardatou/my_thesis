@@ -1,21 +1,29 @@
-# Main Models Repository (Supervised & Transformer Models)
 
-This repository contains the full pipeline for supervised machine learning models and transformer-based models applied on multi-label emotion classification.
+# Main Models Repository (Supervised & Transformer Models - Full Modularized Version)
+
+This repository contains the full modularized pipeline for both supervised machine learning models and transformer-based models applied to multi-label emotion classification on English text data.
 
 ## Repository Structure
 
-- `supervised_models.py` : Traditional ML models using TF-IDF, Word2Vec, Optuna hyperparameter tuning, RandomForest, KNN.
-- `transformer_models.py` : Transformer-based embeddings (BERT, RoBERTa, XLM-RoBERTa, ModernBERT) with classical ML classifiers.
-- `eng.xlsx` : Raw annotation dataset (NOT uploaded to GitHub).
-- `results/` : Saved evaluation reports and intermediate outputs.
-- `figures/` : Auto-generated visualizations.
-- `saved_models/` : Saved trained models.
-- `requirements.txt` : Required Python packages.
-- `.gitignore` : Files/folders excluded from version control.
+- `main.py` — Full supervised ML pipeline (TF-IDF, Word2Vec).
+- `transformer_main.py` — Full transformer embeddings ML pipeline.
+- `src/` — Folder containing all modularized code:
+  - `data_loader.py` — Load and preprocess the Excel dataset.
+  - `text_cleaner.py` — Clean text (URLs, symbols, lowercasing).
+  - `features_tfidf.py` — Extract TF-IDF features.
+  - `features_word2vec.py` — Extract Word2Vec features.
+  - `supervised_trainer.py` — Train ML models on TF-IDF & Word2Vec features.
+  - `transformer_embedding_extractor.py` — Extract embeddings from transformer models.
+  - `transformer_trainer.py` — Train ML models on transformer embeddings.
+  - `evaluation.py` — Evaluate models and save classification reports.
+- `eng.xlsx` — Multi-label emotion annotation dataset.
+- `results/` — Saved supervised ML evaluation reports.
+- `results_transformers/` — Saved transformer-based evaluation reports.
+- `requirements.txt` — Required Python packages.
 
 ## Emotion Labels
 
-The models classify texts into the following emotion categories:
+The models classify texts into the following 5 emotion categories:
 
 - Anger
 - Fear
@@ -25,52 +33,43 @@ The models classify texts into the following emotion categories:
 
 ## How to Run
 
-### Prepare your data
+### 1️⃣ Prepare your data
 
-- Place `eng.xlsx` directly in the root of `main_models_repo/`.
+Place `eng.xlsx` directly inside the project root directory.
 
-The Excel file should contain:
+### 2️⃣ Install dependencies
 
-text, anger, fear, joy, sadness, surprise
-
-### Install dependencies
-
+```bash
 pip install -r requirements.txt
+```
 
-Example packages included:
+### 3️⃣ Execute the pipelines
 
-pandas
-numpy
-scikit-learn
-matplotlib
-tqdm
-transformers
-optuna
-gensim
-xgboost
-catboost
-lightgbm
-joblib
-nltk
+#### For supervised models:
 
-### Execute scripts
+```bash
+python main.py
+```
 
-#### Traditional ML models:
+#### For transformer models:
 
-python supervised_models.py
+```bash
+python transformer_main.py
+```
 
-#### Transformer models:
+The outputs (evaluation reports) will be automatically stored in `results/` and `results_transformers/`.
 
-python transformer_models.py
+## Output
 
-- Results will be saved into `results/` and `saved_models/`.
-- Figures will be saved into `figures/`.
+- Classification reports (F1-scores, precision, recall)
+- Saved models and reproducible results
+- Fully modularized codebase
 
 ## Notes
 
-- This repository performs **multi-label classification**.
-- The Transformers extract embeddings from pretrained models and apply classical ML classifiers.
-- The dataset file `eng.xlsx`, intermediate models and embeddings are excluded from GitHub for privacy.
+- Fully modularized and reproducible.
+- Clean separation between supervised ML and transformer-based pipelines.
+- Thesis-ready submission structure.
 
 ---
 

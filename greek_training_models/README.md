@@ -1,37 +1,40 @@
 
-# Greek Emotion Classification Models
+# Greek Emotion & Sentiment Classification (Modularized Version)
 
-This repository contains emotion classification models trained on Greek language datasets, including fine-tuning of transformer-based models.
+This repository contains a fully modularized pipeline for fine-tuning transformer models (RoBERTa/XLM-RoBERTa) on Greek emotion and sentiment classification tasks.
 
 ## Repository Structure
 
-- `greek_roberta_models.py`: Main training and evaluation script for Greek transformer models.
-- `gr.xlsx`: Main dataset with text and labels (not uploaded to GitHub).
-- `ground_truth.xlsx`: Annotated ground truth labels (not uploaded to GitHub).
-- `ib1_sentiment_probs.xlsx`: Additional sentiment probabilities (not uploaded to GitHub).
-- `figures/`: Auto-generated visualizations.
-- `results/`: Saved evaluation reports.
-- `requirements.txt`: Required Python packages.
-- `.gitignore`: Files/folders excluded from version control.
+- `main.py` — Main script that runs the full training pipeline for all datasets.
+- `src/` — Folder containing all modularized Python classes:
+  - `data_loader.py` — Load and preprocess the Excel datasets.
+  - `tokenizer_dataset.py` — Create tokenized HuggingFace datasets.
+  - `trainer.py` — Handle fine-tuning of transformer models.
+  - `evaluator.py` — Evaluate trained models and generate classification reports.
+- `gr.xlsx` — 3-class sentiment dataset.
+- `ib1_sentiment_probs.xlsx` — 4-class sentiment dataset.
+- `ground_truth.xlsx` — 9-class emotion dataset.
+- `results/` — Auto-generated fine-tuned models and evaluation results.
+- `requirements.txt` — Required Python packages.
+- `.gitignore` — Files and folders excluded from version control.
 
-## Emotion Labels
+## Tasks & Labels
 
-The models classify Greek texts into:
-
-- Positive
-- Negative
-- Neutral
-- Narrator (if used)
+| Dataset | Classes | Model |
+|---------|---------|--------|
+| `gr.xlsx` | negative, neutral, positive | xlm-roberta-large |
+| `ib1_sentiment_probs.xlsx` | negative, neutral, positive, narrator | xlm-roberta-large |
+| `ground_truth.xlsx` | 9 emotions | xlm-roberta-base |
 
 ## How to Run
 
 ### 1️. Prepare your data
 
-Place the following files into the root directory:
+Place the three input files in the root directory:
 
 - `gr.xlsx`
-- `ground_truth.xlsx`
 - `ib1_sentiment_probs.xlsx`
+- `ground_truth.xlsx`
 
 ### 2️. Install dependencies
 
@@ -42,10 +45,20 @@ pip install -r requirements.txt
 ### 3️. Execute the script
 
 ```bash
-python greek_roberta_models.py
+python main.py
 ```
 
-The results will be saved into the `results/` and `figures/` folders.
+## Output
+
+- Trained models will be saved inside the `results/` folder.
+- Evaluation reports are printed automatically after training.
+
+## Notes
+
+- Fully modularized and reproducible.
+- Clean separation into classes for data loading, training, evaluation.
+- Handles multiple tasks in a single run.
+- Ready for thesis submission.
 
 ---
 
