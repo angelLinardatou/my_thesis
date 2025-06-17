@@ -42,7 +42,7 @@ greek_training_models/ib1_sentiment_probs.*
 #############################
 
 # Raw data (eng.xlsx lives directly here)
-main_models_repo/eng.*
+#main_models_repo/eng.*
 
 # Outputs
 main_models_repo/results/
