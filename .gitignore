@@ -48,3 +48,4 @@ main_models_repo/eng.*
 main_models_repo/results/
 main_models_repo/saved_models/
 main_models_repo/figures/
+venv/
