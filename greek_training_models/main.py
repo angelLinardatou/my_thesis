@@ -23,7 +23,7 @@ data_loader = DataLoaderManager(data_dir)
 ##########################
 
 # Load data
-gr_df = data_loader.load_dataset("gr.xlsx")
+gr_df = data_loader.load_dataset("gr.csv")
 
 # Mapping
 gr_mapping = {'negative': 0, 'neutral': 1, 'positive': 2}
@@ -64,7 +64,7 @@ evaluator_gr.evaluate(gr_val_labels, pred_labels_gr)
 # TASK 2 — ib1_sentiment_probs.xlsx (4-class sentiment)
 ##########################
 
-ib1_df = data_loader.load_dataset("ib1_sentiment_probs.xlsx")
+ib1_df = data_loader.load_dataset("ib1_sentiment_probs.csv")
 ib1_mapping = {'negative': 0, 'neutral': 1, 'positive': 2, 'narrator': 3}
 ib1_df = data_loader.map_labels(ib1_df, 'final_sentiment', 'label_num', ib1_mapping)
 
@@ -97,7 +97,7 @@ evaluator_ib1.evaluate(ib1_val_labels, pred_labels_ib1)
 # TASK 3 — ground_truth.xlsx (9-class emotions)
 ##########################
 
-gt_df = data_loader.load_dataset("ground_truth.xlsx")
+gt_df = data_loader.load_dataset("ground_truth.csv")
 gt_mapping = {
     'admiration': 0, 'amusement': 1, 'anger': 2, 'approval': 3, 'caring': 4,
     'curiosity': 5, 'disappointment': 6, 'excitement': 7, 'gratitude': 8

@@ -10,7 +10,7 @@ class DataLoaderManager:
     def load_dataset(self, filename: str):
         """Load CSV dataset from base directory."""
         file_path = self.base_dir / filename
-        df = pd.read_excel(file_path)
+        df = pd.read_csv(file_path)
         return df
 
     def map_labels(self, df, mapping_column, label_column, mapping_dict):
