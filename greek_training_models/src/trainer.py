@@ -1,38 +1,40 @@
 import torch
+import torch.nn as nn
 from transformers import Trainer, TrainingArguments
 
-class ModelTrainer:
-    """Handle HuggingFace model fine-tuning."""
+class CustomTrainer(Trainer):
+    def compute_loss(self, model, inputs, return_outputs=False):
+        labels = inputs.pop("labels")
+        outputs = model(**inputs)
+        logits = outputs.logits
+        loss_fct = nn.CrossEntropyLoss()
+        loss = loss_fct(logits, labels.long())
+        return (loss, outputs) if return_outputs else loss
 
-    def __init__(self, model, train_dataset, eval_dataset, output_dir, epochs=3, batch_size=8):
+class ModelTrainer:
+    def __init__(self, model, train_dataset, val_dataset, output_dir, epochs, batch_size):
+        self.model = model
+        self.output_dir = output_dir
+
         self.training_args = TrainingArguments(
             output_dir=output_dir,
             num_train_epochs=epochs,
             per_device_train_batch_size=batch_size,
             per_device_eval_batch_size=batch_size,
-            evaluation_strategy="epoch",
             save_strategy="epoch",
-            save_total_limit=1,
+            evaluation_strategy="epoch",
+            logging_strategy="epoch",
             load_best_model_at_end=True,
             metric_for_best_model="eval_loss",
-            greater_is_better=False,
-            logging_dir=output_dir / "logs",
-            logging_strategy="epoch",
-            report_to="none"  # disables wandb etc.
+            greater_is_better=False
         )
-        self.trainer = Trainer(
-            model=model,
+
+        self.trainer = CustomTrainer(
+            model=self.model,
             args=self.training_args,
             train_dataset=train_dataset,
-            eval_dataset=eval_dataset,
-            tokenizer=None  # will set later if needed
+            eval_dataset=val_dataset
         )
 
     def train(self):
-        """Run the fine-tuning process."""
         self.trainer.train()
-
-    def save_model(self, save_path):
-        """Save the fine-tuned model."""
-        self.trainer.save_model(save_path)
- 

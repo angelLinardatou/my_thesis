@@ -32,8 +32,7 @@ gr_df = data_loader.map_labels(gr_df, 'gold_label', 'label_num', gr_mapping)
 print("Unique label_num values:", gr_df["label_num"].unique())
 print("Label_num dtype:", gr_df["label_num"].dtype)
 
-# Split
-gr_train_texts, gr_val_texts, gr_train_labels, gr_val_labels = train_test_split(
+# Spligr_train_texts, gr_val_texts, gr_train_labels, gr_val_labels = train_test_split(
     gr_df['full_text'], gr_df['label_num'], test_size=0.2, random_state=42
 )
 
