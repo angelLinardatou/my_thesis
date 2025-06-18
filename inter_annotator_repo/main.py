@@ -1,10 +1,14 @@
 # Plot emotion distribution for each file
 import numpy as np
 import pandas as pd
+import sys
+import pathlib 
+
+sys.path.append(str(pathlib.Path(__file__).resolve().parent))
 
 from src.loader import AnnotationLoader
 from src.statistics import AnnotationStatistics
-from src.plotter import AnnotationPlotter
+from src.plot import AnnotationPlotter
 from src.agreement import AgreementCalculator
 from src.confusion import ConfusionMatrixPlotter
 from src.kappa_plots import KappaPlotter
