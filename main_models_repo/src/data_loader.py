@@ -10,6 +10,6 @@ class DataLoader:
     def load_dataset(self, filename: str):
         """Load Excel dataset from base directory."""
         file_path = self.base_dir / filename
-        df = pd.read_excel(file_path)
+        df = pd.read_csv(file_path)
         return df
  
