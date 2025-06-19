@@ -23,7 +23,7 @@ figures_dir.mkdir(exist_ok=True)
 
 # Load data
 loader = DataLoader(data_dir)
-df = loader.load_dataset("eng.xlsx")
+df = loader.load_dataset("eng.csv")
 
 # Clean text
 cleaner = TextCleaner()
