@@ -26,8 +26,12 @@ data_loader = DataLoaderManager(data_dir)
 gr_df = data_loader.load_dataset("gr.csv")
 
 # Mapping
-gr_mapping = {'negative': 0, 'neutral': 1, 'positive': 2}
+gr_mapping = {-1: 0, 0: 1, 1: 2}
 gr_df = data_loader.map_labels(gr_df, 'gold_label', 'label_num', gr_mapping)
+
+# Clean missing or unknown labels
+gr_df = gr_df[gr_df['label_num'].notna()]
+gr_df['label_num'] = gr_df['label_num'].astype(int)
 
 print("Unique label_num values:", gr_df["label_num"].unique())
 print("Label_num dtype:", gr_df["label_num"].dtype)
