@@ -18,6 +18,8 @@ base_dir = Path(__file__).parent
 data_dir = base_dir
 results_dir = base_dir / "results_transformers"
 results_dir.mkdir(exist_ok=True, parents=True)
+figures_dir = base_dir / "figures"
+figures_dir.mkdir(exist_ok=True)
 
 # Load data
 loader = DataLoader(data_dir)
