@@ -48,7 +48,7 @@ pip install -r requirements.txt
 #### For supervised models:
 
 ```bash
-python main.py
+python supervised_models.py
 ```
 
 #### For transformer models:
