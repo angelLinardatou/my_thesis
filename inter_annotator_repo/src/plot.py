@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import pandas as pd
 
-def plot_emotion_distribution(self, df, filename)(
+def plot_emotion_distribution(df, filename, figure_dir)(
     df: pd.DataFrame,
     filename: str,
     figures_dir: Path
