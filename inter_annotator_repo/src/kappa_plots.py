@@ -17,5 +17,5 @@ def plot_kappa_heatmap(
             fmt=".2f", xticklabels=annotators, yticklabels=annotators
         )
         plt.title(f"Kappa Heatmap for {emotion}")
-        plt.savefig(self.figures_dir / f"{emotion}_kappa_heatmap.png")
+        plt.savefig(figures_dir / f"{emotion}_kappa_heatmap.png")
         plt.close()
