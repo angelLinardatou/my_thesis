@@ -13,7 +13,7 @@ def plot_confusion_matrix(
     filename: str,
     figures_dir: Path
 ) -> None:
-"""Plot and save confusion matrix."""
+    """Plot and save confusion matrix."""
     cm = confusion_matrix(y_true, y_pred, labels=labels)
     plt.figure(figsize=(8, 6))
     sns.heatmap(cm, annot=True, fmt="d", cmap="YlGnBu",
