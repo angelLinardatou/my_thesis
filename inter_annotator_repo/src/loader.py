@@ -8,6 +8,6 @@ def load_annotation_files(
     """Load Excel files from annotation directory."""
     files = list(annotation_dir.glob("*.xlsx"))
     return {
-        file.stem: pd.read_excel(file)
+        file.stem: pd.read_excel(file, header=1).rename(str.lower, axis=1)
         for file in files
     }
