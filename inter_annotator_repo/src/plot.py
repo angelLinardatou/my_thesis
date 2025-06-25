@@ -11,5 +11,5 @@ def plot_emotion_distribution(
         df[['anger', 'fear', 'joy', 'sadness', 'surprise']].sum().plot(kind='bar')
         plt.title(f"Emotion Distribution: {filename}")
         plt.ylabel("Count")
-        plt.savefig(self.figures_dir / f"{filename}_distribution.png")
+        plt.savefig(figures_dir / f"{filename}_distribution.png")
         plt.close()
