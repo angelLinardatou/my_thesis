@@ -19,9 +19,6 @@ class AgreementCalculator:
                  y1 = self.annotations.iloc[:, i]
                  y2 = self.annotations.iloc[:, j]
 
-                 print("DEBUG:", y1.unique())
-                 print("DEBUG:", y2.unique())
-
                  # Clean NaN
                  mask = y1.notna() & y2.notna()
                  y1 = y1[mask].astype(str)
