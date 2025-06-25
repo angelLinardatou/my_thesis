@@ -22,7 +22,7 @@ class AgreementCalculator:
                  print("DEBUG:", y1.unique())
                  print("DEBUG:", y2.unique())
 
-                 # Καθαρισμός NaNs
+                 # Clean NaN
                  mask = y1.notna() & y2.notna()
                  y1 = y1[mask].astype(str)
                  y2 = y2[mask].astype(str)
