@@ -11,9 +11,6 @@ from src.confusion import plot_confusion_matrix
 from src.kappa_plots import plot_kappa_heatmap
 from pathlib import Path
 
-# Add current directory to path
-sys.path.append(str(pathlib.Path(__file__).resolve().parent))
-
 # Define project paths
 base_dir = Path(__file__).parent
 annotation_dir = base_dir / "annotations"
