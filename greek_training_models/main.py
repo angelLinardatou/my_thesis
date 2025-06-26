@@ -4,10 +4,10 @@ import torch
 from sklearn.model_selection import train_test_split
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-from src.data_loader import DataLoaderManager
+from src.data_loader import load_dataset, map_labels
 from src.tokenizer_dataset import CustomDataset
 from src.trainer import ModelTrainer
-from src.evaluator import ModelEvaluator
+from src.evaluator import evaluate 
 
 # Paths
 base_dir = Path(__file__).parent
@@ -15,19 +15,16 @@ data_dir = base_dir
 results_dir = base_dir / "results"
 results_dir.mkdir(exist_ok=True)
 
-# Initialize loader
-data_loader = DataLoaderManager(data_dir)
-
 ##########################
 # TASK 1 — gr.xlsx (3-class sentiment)
 ##########################
 
 # Load data
-gr_df = data_loader.load_dataset("gr.csv")
+gr_df = load_dataset(data_dir, "gr.csv")
 
 # Mapping
 gr_mapping = {-1: 0, 0: 1, 1: 2}
-gr_df = data_loader.map_labels(gr_df, 'gold_label', 'label_num', gr_mapping)
+gr_df = map_labels(gr_df, 'gold_label', 'label_num', gr_mapping)
 
 # Clean missing or unknown labels
 gr_df = gr_df[gr_df['label_num'].notna()]
@@ -64,16 +61,15 @@ model_gr.eval()
 val_preds_gr = trainer_gr.trainer.predict(val_dataset_gr)
 pred_labels_gr = torch.argmax(torch.tensor(val_preds_gr.predictions), axis=1).numpy()
 
-evaluator_gr = ModelEvaluator(["negative", "neutral", "positive"])
-evaluator_gr.evaluate(gr_val_labels, pred_labels_gr)
+evaluate(gr_val_labels, pred_labels_gr, ["negative", "neutral", "positive"])
 
 ##########################
 # TASK 2 — ib1_sentiment_probs.xlsx (4-class sentiment)
 ##########################
 
-ib1_df = data_loader.load_dataset("ib1_sentiment_probs.csv")
+ib1_df = load_dataset(data_dir, "ib1_sentiment_probs.csv")
 ib1_mapping = {'negative': 0, 'neutral': 1, 'positive': 2, 'narrator': 3}
-ib1_df = data_loader.map_labels(ib1_df, 'final_sentiment', 'label_num', ib1_mapping)
+ib1_df = map_labels(ib1_df, 'final_sentiment', 'label_num', ib1_mapping)
 
 ib1_train_texts, ib1_val_texts, ib1_train_labels, ib1_val_labels = train_test_split(
     ib1_df['text'], ib1_df['label_num'], test_size=0.2, random_state=42
@@ -97,19 +93,18 @@ model_ib1.eval()
 val_preds_ib1 = trainer_ib1.trainer.predict(val_dataset_ib1)
 pred_labels_ib1 = torch.argmax(torch.tensor(val_preds_ib1.predictions), axis=1).numpy()
 
-evaluator_ib1 = ModelEvaluator(["negative", "neutral", "positive", "narrator"])
-evaluator_ib1.evaluate(ib1_val_labels, pred_labels_ib1)
+evaluate(ib1_val_labels, pred_labels_ib1, ["negative", "neutral", "positive", "narrator"])
 
 ##########################
 # TASK 3 — ground_truth.xlsx (9-class emotions)
 ##########################
 
-gt_df = data_loader.load_dataset("ground_truth.csv")
+gt_df = load_dataset(data_dir, "ground_truth.csv")
 gt_mapping = {
     'admiration': 0, 'amusement': 1, 'anger': 2, 'approval': 3, 'caring': 4,
     'curiosity': 5, 'disappointment': 6, 'excitement': 7, 'gratitude': 8
 }
-gt_df = data_loader.map_labels(gt_df, 'final_emotion', 'label_num', gt_mapping)
+gt_df = map_labels(gt_df, 'final_emotion', 'label_num', gt_mapping)
 
 gt_train_texts, gt_val_texts, gt_train_labels, gt_val_labels = train_test_split(
     gt_df['text'], gt_df['label_num'], test_size=0.2, random_state=42
@@ -133,7 +128,6 @@ model_gt.eval()
 val_preds_gt = trainer_gt.trainer.predict(val_dataset_gt)
 pred_labels_gt = torch.argmax(torch.tensor(val_preds_gt.predictions), axis=1).numpy()
 
-evaluator_gt = ModelEvaluator(list(gt_mapping.keys()))
-evaluator_gt.evaluate(gt_val_labels, pred_labels_gt)
+evaluate(gt_val_labels, pred_labels_gt, list(gt_mapping.keys()))
 
 print(" Full pipeline completed successfully!")
