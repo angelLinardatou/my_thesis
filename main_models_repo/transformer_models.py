@@ -4,7 +4,7 @@ from src.text_cleaner import  clean_text
 from src.transformer_embedding_extractor import EmbeddingExtractor
 from src.transformer_trainer import TransformerTrainer
 from src.evaluation import evaluate_and_save
-
+from src.data_loader import load_dataset
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
 
