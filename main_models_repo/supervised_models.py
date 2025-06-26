@@ -1,9 +1,5 @@
 from pathlib import Path
-import pandas as pd
 import nltk
-nltk.download('stopwords')
-from nltk.corpus import stopwords
-
 from src.data_loader import load_dataset
 from src.text_cleaner import clean_text
 from src.features_tfidf import (
@@ -17,6 +13,8 @@ from src.evaluation import evaluate_and_save
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
+
+nltk.download('stopwords')
 
 # Paths
 base_dir = Path(__file__).parent
