@@ -1,13 +1,8 @@
-import numpy as np
-import pandas as pd
-import sys
-import pathlib 
 
 from src.loader import load_annotation_files
 from src.statistics import compute_annotation_statistics
 from src.plot import plot_emotion_distribution
 from src.agreement import AgreementCalculator
-from src.confusion import plot_confusion_matrix
 from src.kappa_plots import plot_kappa_heatmap
 from pathlib import Path
 
