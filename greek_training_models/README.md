@@ -1,7 +1,7 @@
 
 # Greek Emotion & Sentiment Classification (Modularized Version)
 
-This repository contains a fully modularized pipeline for fine-tuning transformer models (RoBERTa/XLM-RoBERTa) on Greek emotion and sentiment classification tasks.
+This folder contains a fully modularized pipeline for fine-tuning transformer models (RoBERTa/XLM-RoBERTa) on Greek emotion and sentiment classification tasks.
 
 ## Repository Structure
 
@@ -11,9 +11,10 @@ This repository contains a fully modularized pipeline for fine-tuning transforme
   - `tokenizer_dataset.py` — Create tokenized HuggingFace datasets.
   - `trainer.py` — Handle fine-tuning of transformer models.
   - `evaluator.py` — Evaluate trained models and generate classification reports.
-- `gr.xlsx` — 3-class sentiment dataset.
-- `ib1_sentiment_probs.xlsx` — 4-class sentiment dataset.
-- `ground_truth.xlsx` — 9-class emotion dataset.
+- `data/` - Folder containing all the datasets
+  - `gr.csv` — 3-class sentiment dataset.
+  - `ib1_sentiment_probs.cvs` — 4-class sentiment dataset.
+  - `ground_truth.csv` — 9-class emotion dataset.
 - `results/` — Auto-generated fine-tuned models and evaluation results.
 - `requirements.txt` — Required Python packages.
 - `.gitignore` — Files and folders excluded from version control.
