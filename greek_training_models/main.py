@@ -3,7 +3,7 @@ import torch
 from sklearn.model_selection import train_test_split
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-from src.data_loader import load_dataset, map_labels
+from src.data_loader import load_dataset
 from src.tokenizer_dataset import CustomDataset
 from src.trainer import ModelTrainer
 from src.evaluator import evaluate 
@@ -23,7 +23,7 @@ gr_df = load_dataset(data_dir, "gr.csv")
 
 # Mapping
 gr_mapping = {-1: 0, 0: 1, 1: 2}
-gr_df = map_labels(gr_df, 'gold_label', 'label_num', gr_mapping)
+gr_df['label_num'] = gr_df['gold_label'].map(gr_mapping)
 
 # Clean missing or unknown labels
 gr_df = gr_df[gr_df['label_num'].notna()]
@@ -68,7 +68,7 @@ evaluate(gr_val_labels, pred_labels_gr, ["negative", "neutral", "positive"])
 
 ib1_df = load_dataset(data_dir, "ib1_sentiment_probs.csv")
 ib1_mapping = {'negative': 0, 'neutral': 1, 'positive': 2, 'narrator': 3}
-ib1_df = map_labels(ib1_df, 'final_sentiment', 'label_num', ib1_mapping)
+ib1_df['label_num'] = ib1_df['final_sentiment'].map(ib1_mapping)
 
 ib1_train_texts, ib1_val_texts, ib1_train_labels, ib1_val_labels = train_test_split(
     ib1_df['text'], ib1_df['label_num'], test_size=0.2, random_state=42
@@ -103,7 +103,7 @@ gt_mapping = {
     'admiration': 0, 'amusement': 1, 'anger': 2, 'approval': 3, 'caring': 4,
     'curiosity': 5, 'disappointment': 6, 'excitement': 7, 'gratitude': 8
 }
-gt_df = map_labels(gt_df, 'final_emotion', 'label_num', gt_mapping)
+gt_df['label_num'] = gt_df['final_emotion'].map(gt_mapping)
 
 gt_train_texts, gt_val_texts, gt_train_labels, gt_val_labels = train_test_split(
     gt_df['text'], gt_df['label_num'], test_size=0.2, random_state=42
