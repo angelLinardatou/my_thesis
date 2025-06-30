@@ -14,7 +14,7 @@ nltk.download('stopwords')
 
 # Paths
 base_dir = Path(__file__).parent
-data_dir = base_dir
+data_dir = base_dir / "data" 
 results_dir = base_dir / "results"
 results_dir.mkdir(exist_ok=True, parents=True)
 figures_dir = base_dir / "figures"

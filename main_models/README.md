@@ -1,24 +1,21 @@
 
-# Main Models Repository (Supervised & Transformer Models - Full Modularized Version)
+# Main Models Repository (Supervised & Transformer Models)
 
-This repository contains the full modularized pipeline for both supervised machine learning models and transformer-based models applied to multi-label emotion classification on English text data.
+This folder contains the full modularized pipeline for both supervised machine learning models and transformer-based models applied to multi-label emotion classification on English text data.
 
 ## Repository Structure
 
-- `main.py` — Full supervised ML pipeline (TF-IDF, Word2Vec).
+- `supervised_models.py` — Full supervised ML pipeline (TF-IDF, Word2Vec).
 - `transformer_main.py` — Full transformer embeddings ML pipeline.
 - `src/` — Folder containing all modularized code:
   - `data_loader.py` — Load and preprocess the Excel dataset.
   - `text_cleaner.py` — Clean text (URLs, symbols, lowercasing).
-  - `features_tfidf.py` — Extract TF-IDF features.
   - `features_word2vec.py` — Extract Word2Vec features.
   - `supervised_trainer.py` — Train ML models on TF-IDF & Word2Vec features.
   - `transformer_embedding_extractor.py` — Extract embeddings from transformer models.
   - `transformer_trainer.py` — Train ML models on transformer embeddings.
-  - `evaluation.py` — Evaluate models and save classification reports.
-- `eng.xlsx` — Multi-label emotion annotation dataset.
-- `results/` — Saved supervised ML evaluation reports.
-- `results_transformers/` — Saved transformer-based evaluation reports.
+- `data/` - Folder containing the dataset 
+  - `eng.xlsx` — Multi-label emotion annotation dataset.
 - `requirements.txt` — Required Python packages.
 
 ## Emotion Labels
@@ -33,17 +30,17 @@ The models classify texts into the following 5 emotion categories:
 
 ## How to Run
 
-### 1️⃣ Prepare your data
+### 1️. Prepare your data
 
 Place `eng.xlsx` directly inside the project root directory.
 
-### 2️⃣ Install dependencies
+### 2️. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Execute the pipelines
+### 3️. Execute the pipelines
 
 #### For supervised models:
 
