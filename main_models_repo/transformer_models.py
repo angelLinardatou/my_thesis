@@ -1,17 +1,15 @@
 from pathlib import Path
-import pandas as pd
 import nltk
-nltk.download('stopwords')
-from nltk.corpus import stopwords
-
-from src.data_loader import DataLoader
-from src.text_cleaner import TextCleaner
+from src.text_cleaner import  clean_text
 from src.transformer_embedding_extractor import EmbeddingExtractor
 from src.transformer_trainer import TransformerTrainer
-from src.evaluation import Evaluator
-
+import pandas as pd
+from sklearn.metrics import classification_report
+from src.data_loader import load_dataset
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
+
+nltk.download('stopwords')
 
 # Paths
 base_dir = Path(__file__).parent
@@ -22,12 +20,10 @@ figures_dir = base_dir / "figures"
 figures_dir.mkdir(exist_ok=True)
 
 # Load data
-loader = DataLoader(data_dir)
-df = loader.load_dataset("eng.csv")
+df = load_dataset(data_dir, "eng.csv")
 
 # Clean text
-cleaner = TextCleaner()
-df['clean_text'] = df['text'].apply(cleaner.clean_text)
+df['clean_text'] = df['text'].apply(clean_text)
 
 # Train-test split
 X_train, X_test, Y_train, Y_test = train_test_split(df['clean_text'], df[['anger', 'fear', 'joy', 'sadness', 'surprise']], test_size=0.2, random_state=42)
@@ -52,9 +48,13 @@ trainer.train_random_forest(X_train_embeddings, Y_train_bin)
 trainer.train_svm(X_train_embeddings, Y_train_bin)
 
 # Evaluate Models
-evaluator = Evaluator(['anger', 'fear', 'joy', 'sadness', 'surprise'])
+label_names = ['anger', 'fear', 'joy', 'sadness', 'surprise']
 for model_name in trainer.models.keys():
     preds = trainer.predict(model_name, X_test_embeddings)
-    evaluator.evaluate_and_save(Y_test_bin, preds, results_dir / f"{model_name}_transformer_report.csv")
+    report = classification_report(Y_test_bin, preds, output_dict=True)
+    report_df = pd.DataFrame(report).transpose()
+    report_df.to_csv(results_dir / f"{model_name}_transformer_report.csv")
+    print(f"\n=== {model_name} ===")
+    print(report_df)
 
 print("Full transformer pipeline completed successfully!")

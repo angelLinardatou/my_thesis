@@ -1,15 +1,9 @@
 import pandas as pd
-from pathlib import Path
+from pathlib import Path 
 
-class DataLoader:
-    """Load and preprocess multi-label emotion dataset."""
-
-    def __init__(self, base_dir: Path):
-        self.base_dir = base_dir
-
-    def load_dataset(self, filename: str):
-        """Load Excel dataset from base directory."""
-        file_path = self.base_dir / filename
-        df = pd.read_csv(file_path)
-        return df
+def load_dataset(base_dir: Path, filename: str)-> pd.DataFrame:
+    """Load Excel dataset from base directory."""
+    file_path = base_dir / filename
+    df = pd.read_csv(file_path)
+    return df
  

@@ -1,18 +1,16 @@
+import pandas as np
 from pathlib import Path
-import pandas as pd
 import nltk
-nltk.download('stopwords')
-from nltk.corpus import stopwords
-
-from src.data_loader import DataLoader
-from src.text_cleaner import TextCleaner
-from src.features_tfidf import TfidfFeatures
+from src.data_loader import load_dataset
+from src.text_cleaner import clean_text
+from sklearn.feature_extraction.text import TfidfVectorizer
 from src.features_word2vec import Word2VecFeatures
 from src.supervised_trainer import SupervisedTrainer
-from src.evaluation import Evaluator
-
+from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
+
+nltk.download('stopwords')
 
 # Paths
 base_dir = Path(__file__).parent
@@ -23,12 +21,10 @@ figures_dir = base_dir / "figures"
 figures_dir.mkdir(exist_ok=True)
 
 # Load data
-loader = DataLoader(data_dir)
-df = loader.load_dataset("eng.csv")
+df = load_dataset(data_dir, "eng.csv")
 
 # Clean text
-cleaner = TextCleaner()
-df['clean_text'] = df['text'].apply(cleaner.clean_text)
+df['clean_text'] = df['text'].apply(clean_text)
 
 # Train-test split
 X_train, X_test, Y_train, Y_test = train_test_split(df['clean_text'], df[['anger', 'fear', 'joy', 'sadness', 'surprise']], test_size=0.2, random_state=42)
@@ -39,9 +35,9 @@ Y_train_bin = mlb.fit_transform(Y_train.values)
 Y_test_bin = mlb.transform(Y_test.values)
 
 # TF-IDF Features
-tfidf = TfidfFeatures(max_features=5000)
-X_train_tfidf = tfidf.fit_transform(X_train)
-X_test_tfidf = tfidf.transform(X_test)
+vectorizer = TfidfVectorizer(max_features=5000)
+X_train_tfidf = vectorizer.fit_transform(X_train)
+X_test_tfidf = vectorizer.transform(X_test)
 
 # Word2Vec Features
 word2vec = Word2VecFeatures(vector_size=100)
@@ -59,15 +55,22 @@ trainer.train_random_forest(X_train_tfidf, Y_train_bin)
 trainer.train_svm(X_train_tfidf, Y_train_bin)
 trainer.train_knn(X_train_tfidf, Y_train_bin)
 
+label_names = ['anger', 'fear', 'joy', 'sadness', 'surprise']
+
 # Evaluate TF-IDF Models
-evaluator = Evaluator(['anger', 'fear', 'joy', 'sadness', 'surprise'])
 for model_name in trainer.models.keys():
     preds = trainer.predict(model_name, X_test_tfidf)
-    evaluator.evaluate_and_save(Y_test_bin, preds, results_dir / f"{model_name}_tfidf_report.csv")
+    report = classification_report(Y_test_bin, preds, output_dict=True)
+    report_df = pd.DataFrame(report).transpose()
+    report_df.to_csv(results_dir / f"{model_name}_tfidf_report.csv")
+    print(report_df)
 
 # Train on Word2Vec (only example with logistic regression here)
 trainer.train_logistic_regression(X_train_w2v, Y_train_bin)
 preds_w2v = trainer.predict("LogisticRegression", X_test_w2v)
-evaluator.evaluate_and_save(Y_test_bin, preds_w2v, results_dir / "logistic_word2vec_report.csv")
+report = classification_report(Y_test_bin, preds_w2v, output_dict=True)
+report_df = pd.DataFrame(report).transpose()
+report_df.to_csv(results_dir / "logistic_word2vec_report.csv")
+print(report_df)
 
 print(" Full supervised ML pipeline completed successfully!")
