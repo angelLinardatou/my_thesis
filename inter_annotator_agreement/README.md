@@ -1,13 +1,12 @@
 
 # Inter-Annotator Agreement EDA
 
-This repository contains an Exploratory Data Analysis (EDA) pipeline for studying inter-annotator agreement in emotion labeling tasks.
+This folder contains an Exploratory Data Analysis (EDA) pipeline for studying inter-annotator agreement in emotion labeling tasks.
 
 ## Repository Structure
 
 - `inter_annotator_eda.py`: Main EDA script.
-- `annotations/`: Folder containing the input annotation Excel files (not uploaded to GitHub).
-- `figures/`: Auto-generated visualizations.
+- `annotations/`: Folder containing the input annotation Excel files.
 - `requirements.txt`: Dependencies.
 - `.gitignore`: Files and folders excluded from version control.
 
