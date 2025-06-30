@@ -1,5 +1,5 @@
-import pandas as np
 from pathlib import Path
+import pandas as pd
 import nltk
 from src.data_loader import load_dataset
 from src.text_cleaner import clean_text
