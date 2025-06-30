@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.4.4  # ή όποια είναι η τελευταία συμβατή έκδοση
+    rev: v0.4.4  
     hooks:
       - id: ruff
-        args: [--fix]  # optional: κάνει αυτόματα διορθώσεις
+        args: [--fix]  
