@@ -1,3 +1,4 @@
+import pandas as np
 from pathlib import Path
 import nltk
 from src.data_loader import load_dataset
