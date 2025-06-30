@@ -15,7 +15,6 @@ This folder contains a fully modularized pipeline for fine-tuning transformer mo
   - `gr.csv` — 3-class sentiment dataset.
   - `ib1_sentiment_probs.cvs` — 4-class sentiment dataset.
   - `ground_truth.csv` — 9-class emotion dataset.
-- `results/` — Auto-generated fine-tuned models and evaluation results.
 - `requirements.txt` — Required Python packages.
 - `.gitignore` — Files and folders excluded from version control.
 
