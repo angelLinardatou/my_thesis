@@ -3,7 +3,8 @@ import nltk
 from src.text_cleaner import  clean_text
 from src.transformer_embedding_extractor import EmbeddingExtractor
 from src.transformer_trainer import TransformerTrainer
-from src.evaluation import evaluate_and_save
+import pandas as pd
+from sklearn.metrics import classification_report
 from src.data_loader import load_dataset
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
@@ -50,7 +51,10 @@ trainer.train_svm(X_train_embeddings, Y_train_bin)
 label_names = ['anger', 'fear', 'joy', 'sadness', 'surprise']
 for model_name in trainer.models.keys():
     preds = trainer.predict(model_name, X_test_embeddings)
-    evaluate_and_save(Y_test_bin, preds, label_names, results_dir / f"{model_name}_transformer_report.csv")
-
+    report = classification_report(Y_test_bin, preds, output_dict=True)
+    report_df = pd.DataFrame(report).transpose()
+    report_df.to_csv(results_dir / f"{model_name}_transformer_report.csv")
+    print(f"\n=== {model_name} ===")
+    print(report_df)
 
 print("Full transformer pipeline completed successfully!")
