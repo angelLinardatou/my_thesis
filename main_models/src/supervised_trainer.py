@@ -1,11 +1,11 @@
-import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.multioutput import MultiOutputClassifier
 
-class TransformerTrainer:
-    """Train classical ML models on transformer embeddings."""
+class SupervisedTrainer:
+    """Train multiple supervised ML models."""
 
     def __init__(self):
         self.models = {}
@@ -27,6 +27,12 @@ class TransformerTrainer:
         clf = MultiOutputClassifier(SVC(probability=True))
         clf.fit(X_train, Y_train)
         self.models['SVM'] = clf
+
+    def train_knn(self, X_train, Y_train):
+        """Train K-Nearest Neighbors."""
+        clf = MultiOutputClassifier(KNeighborsClassifier(n_neighbors=5))
+        clf.fit(X_train, Y_train)
+        self.models['KNN'] = clf
 
     def predict(self, model_name, X_test):
         """Predict using selected trained model."""
