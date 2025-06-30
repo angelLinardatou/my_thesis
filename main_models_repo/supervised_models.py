@@ -2,11 +2,7 @@ from pathlib import Path
 import nltk
 from src.data_loader import load_dataset
 from src.text_cleaner import clean_text
-from src.features_tfidf import (
-    create_tfidf_vectorizer,
-    fit_transform_tfidf,
-    transform_tfidf,
-)
+from sklearn.feature_extraction.text import TfidfVectorizer
 from src.features_word2vec import Word2VecFeatures
 from src.supervised_trainer import SupervisedTrainer
 from src.evaluation import evaluate_and_save
@@ -39,9 +35,9 @@ Y_train_bin = mlb.fit_transform(Y_train.values)
 Y_test_bin = mlb.transform(Y_test.values)
 
 # TF-IDF Features
-vectorizer = create_tfidf_vectorizer(max_features=5000)
-X_train_tfidf = fit_transform_tfidf(vectorizer, X_train)
-X_test_tfidf = transform_tfidf(vectorizer, X_test)
+vectorizer = TfidfVectorizer(max_features=5000)
+X_train_tfidf = vectorizer.fit_transform(X_train)
+X_test_tfidf = vectorizer.transform(X_test)
 
 # Word2Vec Features
 word2vec = Word2VecFeatures(vector_size=100)
