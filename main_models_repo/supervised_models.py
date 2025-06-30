@@ -5,8 +5,7 @@ from src.text_cleaner import clean_text
 from sklearn.feature_extraction.text import TfidfVectorizer
 from src.features_word2vec import Word2VecFeatures
 from src.supervised_trainer import SupervisedTrainer
-from src.evaluation import evaluate_and_save
-
+from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
 
@@ -60,11 +59,17 @@ label_names = ['anger', 'fear', 'joy', 'sadness', 'surprise']
 # Evaluate TF-IDF Models
 for model_name in trainer.models.keys():
     preds = trainer.predict(model_name, X_test_tfidf)
-    evaluate_and_save(Y_test_bin, preds, label_names, results_dir / f"{model_name}_tfidf_report.csv")
+    report = classification_report(Y_test_bin, preds, output_dict=True)
+    report_df = pd.DataFrame(report).transpose()
+    report_df.to_csv(results_dir / f"{model_name}_tfidf_report.csv")
+    print(report_df)
 
 # Train on Word2Vec (only example with logistic regression here)
 trainer.train_logistic_regression(X_train_w2v, Y_train_bin)
 preds_w2v = trainer.predict("LogisticRegression", X_test_w2v)
-evaluate_and_save(Y_test_bin, preds_w2v, label_names, results_dir / "logistic_word2vec_report.csv")
+report = classification_report(Y_test_bin, preds_w2v, output_dict=True)
+report_df = pd.DataFrame(report).transpose()
+report_df.to_csv(results_dir / "logistic_word2vec_report.csv")
+print(report_df)
 
 print(" Full supervised ML pipeline completed successfully!")
